@@ -1,0 +1,23 @@
+{
+  "name": "hashcheck",
+  "version": "1.0.0",
+  "description": "Hash strings or files (md5/sha1/sha256/sha512) and verify against an expected digest, from the terminal.",
+  "type": "module",
+  "bin": {
+    "hashcheck": "./dist/cli.js"
+  },
+  "files": ["dist"],
+  "scripts": {
+    "build": "tsdown",
+    "test": "bun test",
+    "start": "bun run src/cli.ts",
+    "prepublishOnly": "bun run build"
+  },
+  "keywords": ["hash", "checksum", "sha256", "verify", "cli", "integrity"],
+  "license": "MIT",
+  "devDependencies": {
+    "@types/bun": "latest",
+    "tsdown": "^0.9.0",
+    "typescript": "^5.7.0"
+  }
+}
