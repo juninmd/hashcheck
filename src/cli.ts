@@ -19,7 +19,7 @@ Options:
   -a, --algo <algo>   ${ALGOS.join(" | ")}   (default: sha256)
   -f, --file <path>   hash a file (streamed)
   -c, --check <hex>   verify against an expected digest (algo auto-detected)
-  --all               print md5/sha1/sha256/sha512
+  --all               print md5/sha1/sha256/sha512 (cannot be combined with -c)
   -h, --help`;
 
 function opt(argv: string[], ...names: string[]): string | undefined {
@@ -55,6 +55,10 @@ async function main(argv: string[]): Promise<number> {
   const file = opt(argv, "-f", "--file");
   const check = opt(argv, "-c", "--check");
   const all = argv.includes("--all");
+  if (all && check !== undefined) {
+    console.error(C.red("error: --all cannot be combined with --check"));
+    return 2;
+  }
 
   // Positional text = first non-flag arg that isn't an option's value.
   const consumed = new Set([algoArg, file, check].filter((v): v is string => v !== undefined));
